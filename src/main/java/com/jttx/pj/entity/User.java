@@ -2,9 +2,7 @@ package com.jttx.pj.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by louis on 2014/12/6.
@@ -38,15 +36,15 @@ public class User implements Serializable{
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Set<Role> roleSet = new HashSet<>();
+    private List<Role> roles = new LinkedList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Enterprise enterprise;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
-    private Set<Aptitude> aptitudes=new HashSet<>();
+    private List<Aptitude> aptitudes=new LinkedList<>();
 
 
     public Long getId() {
@@ -153,13 +151,6 @@ public class User implements Serializable{
         this.offerNum = offerNum;
     }
 
-    public Set<Role> getRoleSet() {
-        return roleSet;
-    }
-
-    public void setRoleSet(Set<Role> roleSet) {
-        this.roleSet = roleSet;
-    }
 
     public Enterprise getEnterprise() {
         return enterprise;
@@ -169,11 +160,19 @@ public class User implements Serializable{
         this.enterprise = enterprise;
     }
 
-    public Set<Aptitude> getAptitudes() {
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Aptitude> getAptitudes() {
         return aptitudes;
     }
 
-    public void setAptitudes(Set<Aptitude> aptitudes) {
+    public void setAptitudes(List<Aptitude> aptitudes) {
         this.aptitudes = aptitudes;
     }
 }

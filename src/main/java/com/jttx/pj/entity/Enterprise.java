@@ -2,9 +2,7 @@ package com.jttx.pj.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by louis on 2014/12/6.
@@ -35,19 +33,19 @@ public class Enterprise implements Serializable{
     private double readPaid;
 
     @OneToMany(mappedBy = "enterprise",cascade = CascadeType.ALL)
-    private Set<User> users=new HashSet<>();
+    private List<User> users=new LinkedList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ent_id",nullable = false)
-    private Set<EntResult> entResults=new HashSet<>();
+    private List<EntResult> entResults=new LinkedList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ent_id",nullable = false)
-    private Set<Investor> investors=new HashSet<>();
+    private List<Investor> investors=new LinkedList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ent_id",nullable = false)
-    private Set<Contract> contracts=new HashSet<>();
+    private List<Contract> contracts=new LinkedList<>();
 
     public void addUser(User user){
         if(user==null) {
@@ -137,35 +135,35 @@ public class Enterprise implements Serializable{
         this.readPaid = readPaid;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
-    public Set<EntResult> getEntResults() {
+    public List<EntResult> getEntResults() {
         return entResults;
     }
 
-    public void setEntResults(Set<EntResult> entResults) {
+    public void setEntResults(List<EntResult> entResults) {
         this.entResults = entResults;
     }
 
-    public Set<Investor> getInvestors() {
+    public List<Investor> getInvestors() {
         return investors;
     }
 
-    public void setInvestors(Set<Investor> investors) {
+    public void setInvestors(List<Investor> investors) {
         this.investors = investors;
     }
 
-    public Set<Contract> getContracts() {
+    public List<Contract> getContracts() {
         return contracts;
     }
 
-    public void setContracts(Set<Contract> contracts) {
+    public void setContracts(List<Contract> contracts) {
         this.contracts = contracts;
     }
 }

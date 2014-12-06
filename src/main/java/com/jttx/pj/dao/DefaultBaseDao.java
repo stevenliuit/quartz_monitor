@@ -13,12 +13,11 @@ import java.util.List;
 
 @Repository
 @SuppressWarnings("unchecked")
-public class BaseDaoImpl<T> implements BaseDAO<T> {
+public class DefaultBaseDao<T> extends AbstractBaseDao<T> {
     @Resource
     protected SessionFactory sessionFactory;
 
     public T save(T t) {
-        
         sessionFactory.getCurrentSession().save(t);
         return t;
     }

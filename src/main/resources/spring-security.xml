@@ -25,6 +25,10 @@
         <!-- access denied page -->
         <access-denied-handler error-page="/403"/>
 
+        <session-management>
+            <concurrency-control max-sessions="1" expired-url="/expire"/>
+        </session-management>
+
 
     </http>
 

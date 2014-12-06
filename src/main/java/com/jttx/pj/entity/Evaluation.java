@@ -1,9 +1,7 @@
 package com.jttx.pj.entity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by louis on 2014/12/6.
@@ -48,7 +46,7 @@ public class Evaluation { //评价
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "eval_id",nullable = false)
-    private Set<Comment> comments=new HashSet<>();
+    private List<Comment> comments=new LinkedList<>();
 
 
     @ManyToOne(targetEntity=Enterprise.class)
@@ -188,11 +186,11 @@ public class Evaluation { //评价
         this.date = date;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

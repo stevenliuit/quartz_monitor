@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <welcome-file-list>
+        <welcome-file>index</welcome-file>
+    </welcome-file-list>
+
     <!--charset filter -->
     <filter>
         <filter-name>encoding-filter</filter-name>
@@ -44,6 +48,11 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
+    <!-- concurrent session control -->
+    <listener>
+        <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+    </listener>
     <!-- spring dispatcher -->
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
@@ -59,6 +68,22 @@
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <session-config>
+        <!-- unit:minutes -->
+        <session-timeout>30</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500</location>
+    </error-page>
 
 
 </web-app>
