@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <http auto-config="true" use-expressions="true" >
+        <form-login
+                login-page="/login"
+                default-target-url="/index"
+                authentication-failure-url="/login?error"
+                username-parameter="account"
+                password-parameter="password"/>
+        <logout logout-success-url="/login?logout"/>
+
+        <intercept-url pattern="/manager/admin**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/manager/customer**" access="hasRole('ROLE_CUSTOMER')"/>
+        <intercept-url pattern="/manager/employee**" access="hasRole('ROLE_EMPLOYEE')"/>
+        <intercept-url pattern="/manager/enterprise**" access="hasRole('ROLE_ENTERPRISE')"/>
+
+        <!-- access denied page -->
+        <access-denied-handler error-page="/403"/>
+
+
+    </http>
+
+    <!-- Select users and user_roles from database -->
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query=
+                                       "select account,password from pj_user where account=?"
+                               authorities-by-username-query=
+                                       "select pj_role.role from pj_role,pj_user where pj_role.id=pj_user.id and pj_user.account=?"/>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
