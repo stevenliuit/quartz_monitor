@@ -60,7 +60,7 @@ public class DefaultBaseDao<T> extends AbstractBaseDao<T> {
     public List<T> list(Class<T> clazz, int pageNum, int pageSize) {
         String hql = String.format("select t from %s as t", clazz.getSimpleName());
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setFirstResult(pageNum - 1);
+        query.setFirstResult((pageNum-1)*pageSize);
         query.setMaxResults(pageSize);
         return (List<T>) query.list();
     }
@@ -71,7 +71,7 @@ public class DefaultBaseDao<T> extends AbstractBaseDao<T> {
         for (int i = 0; i < params.length; i++) {
             query.setParameter(i, params[i]);
         }
-        query.setFirstResult(pageNum - 1);
+        query.setFirstResult((pageNum - 1)*pageSize);
         query.setMaxResults(pageSize);
         return (List<T>) query.list();
     }

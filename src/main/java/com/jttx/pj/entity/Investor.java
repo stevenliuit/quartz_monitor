@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by louis on 2014/12/6.
  */
 @Entity
-@Table(name="pj_contributor")
+@Table(name="pj_investor")
 public class Investor { //出资人
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
