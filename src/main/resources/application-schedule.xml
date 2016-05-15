@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+    <task:scheduler id="schedulerTaskThreadPool" pool-size="10"/>
+
+    <task:scheduler id="jobDispatcherThreadPool" pool-size="10"/>
+
+
+    <bean id="dataAccessOperation" class="sun.support.scheduler.dao.JobOperation">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="configService" class="sun.support.scheduler.service.ConfigService">
+        <property name="dataAccessOperation" ref="dataAccessOperation"/>
+        <property name="executorService" ref="jobDispatcherThreadPool"/>
+    </bean>
+
+
+
+    <bean id="demoScheduleJob" class="sun.support.scheduler.core.DefaultScheduleJobDispatcher" depends-on="configService">
+        <property name="scheduleTasks">
+            <list>
+                <ref bean="demoScheduleTask"/>
+                <!--<ref bean="demoBatchScheduleTask"/>-->
+            </list>
+        </property>
+        <property name="jobType" value="NORMAL"/>
+    </bean>
+
+
+    <bean id="demoScheduleTask" class="sun.support.scheduler.demo.DemoScheduleTask"/>
+
+     <!--Schedule tasks-->
+    <task:scheduled-tasks scheduler="schedulerTaskThreadPool">
+        <task:scheduled ref="demoScheduleJob" method="run" fixed-rate="40000"/>
+    </task:scheduled-tasks>
+
+
+</beans>
