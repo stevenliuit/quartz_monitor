@@ -14,6 +14,8 @@ public final class JobContext {
     private Map<String, Object> jobRetVal = new HashMap<>();
     private Exception exception = null;
     private JobEntity jobEntity = new JobEntity();
+    private Map<String, Object> params = new HashMap<String, Object>(); // params
+
 
     public Map<String, Object> getJobRetVal() {
         return jobRetVal;
@@ -37,5 +39,13 @@ public final class JobContext {
 
     public void setJobEntity(JobEntity jobEntity) {
         this.jobEntity = jobEntity;
+    }
+
+    public Map<String, Object> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, Object> params) {
+        this.params = params;
     }
 }
