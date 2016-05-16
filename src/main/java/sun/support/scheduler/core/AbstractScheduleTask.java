@@ -30,15 +30,24 @@ public abstract class AbstractScheduleTask implements ScheduleTask {
     }
 
     @Override
+    public boolean preCondition(JobContext jobContext) {
+        return true;
+    }
+
+    public abstract void prepare(JobContext jobContext);
+
+    @Override
     public Map<String, Object> call() {
 
         Map<String, Object> retVal = null;
 
-        if (preCondition()) {
+        if (preCondition(jobContext)) {
             taskContext.setJobContext(jobContext);
             if (taskListener != null) {
                 taskListener.taskStart(taskContext);
             }
+
+            prepare(jobContext);
 
             try {
                 retVal = doTask(jobContext);

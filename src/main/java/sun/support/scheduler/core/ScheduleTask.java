@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
 public interface ScheduleTask extends Callable<Map<String, Object>>, ScheduleJobContextAware,
         BeanNameAware, InitializingBean {
 
-    boolean preCondition();
+    boolean preCondition(JobContext jobContext);
 
     Map<String, Object> doTask(JobContext jobContext);
 

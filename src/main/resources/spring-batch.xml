@@ -17,7 +17,7 @@
         <property name="transactionManager" ref="transactionManager"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="databaseType" value="MySQL"/>
-        <property name="tablePrefix" value="BATCH_"/>
+        <property name="tablePrefix" value="${batch.table.prefix}"/>
         <!--<property name="isolationLevelForCreate" value="ISOLATION_SERIALIZABLE"/>-->
         <property name="isolationLevelForCreate" value="ISOLATION_READ_COMMITTED"/>
     </bean>
@@ -38,6 +38,7 @@
 
     <bean id="jobExplorer" class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <property name="tablePrefix" value="${batch.table.prefix}"/>
     </bean>
 
     <bean id="jobRegistry" class="org.springframework.batch.core.configuration.support.MapJobRegistry"/>
@@ -55,6 +56,12 @@
     </bean>
 
     <bean id="runIdIncrementer" class="org.springframework.batch.core.launch.support.RunIdIncrementer"/>
+
+    <bean id="jobCleaner" class="sun.support.scheduler.batch.JobCleaner">
+        <property name="dbType" value="MYSQL"/>
+        <property name="tablePrefix" value="${batch.table.prefix}"/>
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
 
 
     <!-- ################################################### -->

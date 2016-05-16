@@ -1,6 +1,7 @@
 package sun.support.scheduler.service;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import sun.support.scheduler.batch.JobCleaner;
 import sun.support.scheduler.dao.DataAccessOperation;
 import sun.support.scheduler.domain.Constant;
 import sun.support.scheduler.domain.JobEntity;
@@ -14,6 +15,8 @@ public class ConfigService implements Services {
     private ThreadPoolTaskScheduler executorService;
 
     private DataAccessOperation<JobEntity, String> dataAccessOperation;
+
+    private JobCleaner jobCleaner;
 
     @Override
     public ThreadPoolTaskScheduler getThreadPoolTaskScheduler() {
@@ -35,6 +38,15 @@ public class ConfigService implements Services {
 
     public void setDataAccessOperation(DataAccessOperation<JobEntity, String> dataAccessOperation) {
         this.dataAccessOperation = dataAccessOperation;
+    }
+
+    @Override
+    public JobCleaner getJobCleaner() {
+        return jobCleaner;
+    }
+
+    public void setJobCleaner(JobCleaner jobCleaner) {
+        this.jobCleaner = jobCleaner;
     }
 
     @Override

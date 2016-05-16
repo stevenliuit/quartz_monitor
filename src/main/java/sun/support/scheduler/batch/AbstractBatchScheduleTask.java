@@ -8,11 +8,13 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import sun.support.scheduler.core.AbstractScheduleTask;
-import sun.support.scheduler.core.DBType;
 import sun.support.scheduler.core.JobContext;
+import sun.support.scheduler.domain.Constant;
+import sun.support.scheduler.service.ConfigService;
+import sun.support.scheduler.service.Provider;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -20,15 +22,9 @@ import java.util.Map;
  */
 public abstract class AbstractBatchScheduleTask extends AbstractScheduleTask {
 
-    protected JdbcTemplate jdbcTemplate;
-
     protected Job job;
 
     protected JobLauncher jobLauncher;
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public void setJob(Job job) {
         this.job = job;
@@ -38,26 +34,27 @@ public abstract class AbstractBatchScheduleTask extends AbstractScheduleTask {
         this.jobLauncher = jobLauncher;
     }
 
-    public abstract void setJobParameters(JobParameters jobParameters);
+    public abstract JobParameters getJobParameters(JobContext jobContext);
 
-    public abstract JobParameters getJobParameters();
-
-    public abstract DBType getDBType();
-
+    public abstract void batchTaskDone(JobContext jobContext);
 
     @Override
-    public boolean preCondition() {
-        return false;
+    public boolean preCondition(JobContext jobContext) {
+        return true;
+    }
+
+    @Override
+    public void prepare(JobContext jobContext) {
+        ConfigService configService = (ConfigService)Provider.getInstance().get(Constant.CONFIG_SERVICE_KEY);
+        configService.getJobCleaner().cleanBeforeJobLaunch(this.job.getName());
     }
 
     @Override
     public Map<String, Object> doTask(JobContext jobContext) {
-        // clean job log
-        new JobCleaner(jdbcTemplate, getDBType()).cleanBeforeJobLaunch(job.getName());
 
-        JobExecution jobExecution = null;
+        JobExecution jobExecution;
         try {
-            jobExecution = jobLauncher.run(job, getJobParameters());
+            jobExecution = jobLauncher.run(job, getJobParameters(jobContext));
             while (jobExecution.isRunning()) {
                 try {
                     Thread.sleep(1000);
@@ -65,10 +62,13 @@ public abstract class AbstractBatchScheduleTask extends AbstractScheduleTask {
                     e.printStackTrace();
                 }
             }
-        } catch (JobExecutionAlreadyRunningException | JobRestartException
-                | JobParametersInvalidException | JobInstanceAlreadyCompleteException e) {
+        } catch (JobExecutionAlreadyRunningException | JobRestartException |
+                JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
+            jobContext.setException(e);
             e.printStackTrace();
+        } finally {
+            batchTaskDone(jobContext);
         }
-        return null;
+        return Collections.emptyMap();
     }
 }

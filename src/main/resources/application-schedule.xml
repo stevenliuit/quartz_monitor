@@ -17,6 +17,7 @@
     <bean id="configService" class="sun.support.scheduler.service.ConfigService">
         <property name="dataAccessOperation" ref="dataAccessOperation"/>
         <property name="executorService" ref="jobDispatcherThreadPool"/>
+        <property name="jobCleaner" ref="jobCleaner"/>
     </bean>
 
 
