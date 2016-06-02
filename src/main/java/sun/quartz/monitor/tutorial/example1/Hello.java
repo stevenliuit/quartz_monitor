@@ -10,7 +10,7 @@ import org.quartz.impl.matchers.NameMatcher;
  */
 public class Hello {
 
-    public static void main(String[] args) throws SchedulerException {
+    public static void main(String[] args) throws SchedulerException, InterruptedException {
         JobDetail job = JobBuilder.newJob(MyJob.class)
                 .withIdentity("job1", "group1")
                 .usingJobData("jobSays","Hello world")
@@ -24,6 +24,10 @@ public class Hello {
                KeyMatcher.keyEquals(new JobKey("job1","group1")));
         scheduler.scheduleJob(job, trigger);
         scheduler.start();
+
+        Thread.sleep(60L * 1000L);
+
+        scheduler.shutdown(true);
 
 
     }
