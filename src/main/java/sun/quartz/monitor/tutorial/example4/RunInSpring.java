@@ -33,8 +33,9 @@ public class RunInSpring {
         // run every 5 seconds
         CronTrigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger1", "group1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
-                .build();
+                .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?")
+                        .withMisfireHandlingInstructionFireAndProceed()
+                ).build();
 
         scheduler.clear();
 
