@@ -25,13 +25,13 @@ public class SimpleRecoveryJob implements Job {
             _log.info("SimpleRecoveryJob: " + jobKey + " starting at " + new Date());
         }
 
-        // delay for ten seconds
-        long delay = 10L * 1000L;
-        try {
-            Thread.sleep(delay);
-        } catch (Exception e) {
-            //
-        }
+//        // delay for ten seconds
+//        long delay = 10L * 1000L;
+//        try {
+//            Thread.sleep(delay);
+//        } catch (Exception e) {
+//            //
+//        }
 
         _log.info("SimpleRecoveryJob: " + jobKey + " done at " + new Date() + "\n");
     }
