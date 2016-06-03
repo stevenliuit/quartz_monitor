@@ -14,6 +14,40 @@
         <property name="overwriteExistingJobs" value="false"/>
         <property name="autoStartup" value="false"/>
         <property name="startupDelay" value="20"/>
-
+        <property name="triggers">
+            <list>
+                <ref bean="exampleTrigger"/>
+            </list>
+        </property>
+        <property name="jobDetails">
+            <list>
+                <ref bean="exampleJob"/>
+            </list>
+        </property>
     </bean>
+
+    <bean id="exampleTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="exampleJob"/>
+        <property name="name" value="trigger1"/>
+        <property name="group" value="triggerGroup1"/>
+        <property name="startDelay" value="20"/>
+        <property name="misfireInstructionName" value="MISFIRE_INSTRUCTION_DO_NOTHING"/>
+        <!--<property name="misfireInstructionName" value="MISFIRE_INSTRUCTION_FIRE_ONCE_NOW"/>-->
+        <property name="cronExpression" value="0/10 * * * * ?"/>
+    </bean>
+
+    <bean name="exampleJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="sun.quartz.monitor.tutorial.example5.ExampleJob"/>
+        <property name="durability" value="true"/>
+        <property name="requestsRecovery" value="true"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="timeout" value="5"/>
+            </map>
+        </property>
+        <property name="name" value="job1"/>
+        <property name="group" value="group1"/>
+     </bean>
+
+
 </beans>
