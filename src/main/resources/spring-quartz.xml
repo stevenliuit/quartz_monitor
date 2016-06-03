@@ -14,6 +14,36 @@
         <property name="overwriteExistingJobs" value="false"/>
         <property name="autoStartup" value="false"/>
         <property name="startupDelay" value="20"/>
-
+        <property name="jobFactory">
+            <bean class="sun.quartz.monitor.component.AutowiringSpringBeanJobFactory"/>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="exampleTrigger"/>
+            </list>
+        </property>
+        <property name="jobDetails">
+            <list>
+                <ref bean="exampleJobDetail"/>
+            </list>
+        </property>
     </bean>
+
+    <bean id="exampleTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="exampleJobDetail" />
+        <property name="group" value="triggerGroup1"/>
+        <property name="name" value="triggerName1"/>
+        <property name="misfireInstructionName" value="MISFIRE_INSTRUCTION_SMART_POLICY"/>
+        <property name="cronExpression" value="0/5 * * * * ?"/>
+    </bean>
+
+    <bean id="exampleJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="sun.quartz.monitor.tutorial.example5.SimpleRecoveryJob"/>
+        <property name="durability" value="true"/>
+        <property name="requestsRecovery" value="true"/>
+        <property name="name" value="job1"/>
+        <property name="group" value="group1"/>
+    </bean>
+
+    <bean id="hello" class="sun.quartz.monitor.tutorial.example5.SimpleHello"/>
 </beans>
