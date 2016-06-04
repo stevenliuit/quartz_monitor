@@ -13,7 +13,9 @@
         </property>
     </bean>
 
-    <context:component-scan base-package="sun.quartz.monitor"/>
+    <context:component-scan base-package="sun.quartz.monitor">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <aop:aspectj-autoproxy/>
 

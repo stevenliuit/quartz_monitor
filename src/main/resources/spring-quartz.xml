@@ -12,7 +12,7 @@
         <!-- Set the key of an ApplicationContext reference to expose in the SchedulerContext -->
         <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
         <property name="overwriteExistingJobs" value="false"/>
-        <property name="autoStartup" value="false"/>
+        <property name="autoStartup" value="true"/>
         <property name="startupDelay" value="20"/>
         <property name="jobFactory">
             <bean class="sun.quartz.monitor.component.AutowiringSpringBeanJobFactory"/>
