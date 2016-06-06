@@ -26,6 +26,8 @@ public class SimpleRecoveryJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         JobKey jobKey = context.getJobDetail().getKey();
+        context.getJobDetail().getJobDataMap().put("hello", "world");
+        context.getTrigger().getJobDataMap().put("trigger", "world");
 
         _log.info("say -> {}", simpleHello.hello());
         if (context.isRecovering()) {

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.quartz.Scheduler</OriginalElement>
+  <nodes>
+    <node x="31.99999999999997" y="80.0">org.quartz.impl.RemoteMBeanScheduler</node>
+    <node x="305.0" y="625.0">org.quartz.JobListener</node>
+    <node x="257.0" y="700.0">org.quartz.Job</node>
+    <node x="136.0" y="700.0">org.quartz.JobKey</node>
+    <node x="600.0" y="625.0">org.quartz.JobBuilder</node>
+    <node x="257.5" y="0.0">org.quartz.Scheduler</node>
+    <node x="233.99999999999997" y="80.0">org.quartz.impl.RemoteScheduler</node>
+    <node x="589.0" y="470.0">org.quartz.TriggerBuilder</node>
+    <node x="391.0" y="235.0">org.quartz.Trigger</node>
+    <node x="370.0" y="315.0">org.quartz.SimpleTrigger</node>
+    <node x="183.0" y="550.0">org.quartz.SimpleScheduleBuilder</node>
+    <node x="241.0" y="315.0">org.quartz.CronTrigger</node>
+    <node x="396.0" y="80.0">org.quartz.impl.StdScheduler</node>
+    <node x="0.0" y="700.0">org.quartz.JobDetail</node>
+    <node x="109.5" y="470.0">org.quartz.ScheduleBuilder</node>
+    <node x="0.0" y="395.0">org.quartz.simpl.PropertySettingJobFactory</node>
+    <node x="48.0" y="235.0">org.quartz.spi.JobFactory</node>
+    <node x="511.0" y="315.0">org.quartz.spi.MutableTrigger</node>
+    <node x="403.0" y="470.0">org.quartz.SchedulerFactory</node>
+    <node x="0.0" y="625.0">org.quartz.JobDataMap</node>
+    <node x="27.0" y="315.0">org.quartz.simpl.SimpleJobFactory</node>
+    <node x="0.0" y="160.0">org.quartz.ee.jmx.jboss.JBoss4RMIRemoteMBeanScheduler</node>
+    <node x="454.0" y="625.0">org.quartz.TriggerKey</node>
+    <node x="154.0" y="625.0">org.quartz.DateBuilder</node>
+    <node x="0.0" y="550.0">org.quartz.CronScheduleBuilder</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.quartz.ee.jmx.jboss.JBoss4RMIRemoteMBeanScheduler" target="org.quartz.impl.RemoteMBeanScheduler">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.quartz.SimpleScheduleBuilder" target="org.quartz.ScheduleBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="270.5" y="525.0" />
+      <point x="209.25" y="525.0" />
+      <point x="33.25" y="15.0" />
+    </edge>
+    <edge source="org.quartz.impl.RemoteScheduler" target="org.quartz.Scheduler">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.quartz.impl.StdScheduler" target="org.quartz.Scheduler">
+      <point x="0.0" y="-15.0" />
+      <point x="453.5" y="55.0" />
+      <point x="336.66666666666663" y="55.0" />
+      <point x="31.666666666666686" y="15.0" />
+    </edge>
+    <edge source="org.quartz.CronTrigger" target="org.quartz.Trigger">
+      <point x="0.0" y="-15.0" />
+      <point x="295.5" y="290.0" />
+      <point x="404.1666666666667" y="290.0" />
+      <point x="-26.33333333333333" y="15.0" />
+    </edge>
+    <edge source="org.quartz.simpl.PropertySettingJobFactory" target="org.quartz.simpl.SimpleJobFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.quartz.simpl.SimpleJobFactory" target="org.quartz.spi.JobFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.quartz.SimpleTrigger" target="org.quartz.Trigger">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.quartz.CronScheduleBuilder" target="org.quartz.ScheduleBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="81.5" y="525.0" />
+      <point x="142.75" y="525.0" />
+      <point x="-33.25" y="15.0" />
+    </edge>
+    <edge source="org.quartz.spi.MutableTrigger" target="org.quartz.Trigger">
+      <point x="0.0" y="-15.0" />
+      <point x="575.5" y="290.0" />
+      <point x="456.8333333333333" y="290.0" />
+      <point x="26.333333333333314" y="15.0" />
+    </edge>
+    <edge source="org.quartz.impl.RemoteMBeanScheduler" target="org.quartz.Scheduler">
+      <point x="0.0" y="-15.0" />
+      <point x="122.99999999999997" y="55.0" />
+      <point x="273.33333333333326" y="55.0" />
+      <point x="-31.666666666666686" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="93.0" y="-356.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

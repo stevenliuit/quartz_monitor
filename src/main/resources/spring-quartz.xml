@@ -20,11 +20,14 @@
         <property name="triggers">
             <list>
                 <ref bean="exampleTrigger"/>
+                <ref bean="exampleTrigger2"/>
+
             </list>
         </property>
         <property name="jobDetails">
             <list>
                 <ref bean="exampleJobDetail"/>
+                <ref bean="exampleJobDetail2"/>
             </list>
         </property>
     </bean>
@@ -45,5 +48,33 @@
         <property name="group" value="group1"/>
     </bean>
 
+    <bean id="exampleTrigger2"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="exampleJobDetail2" />
+        <property name="group" value="triggerGroup2"/>
+        <property name="name" value="triggerName2"/>
+        <property name="misfireInstructionName" value="MISFIRE_INSTRUCTION_SMART_POLICY"/>
+        <property name="cronExpression" value="0/13 * * * * ?"/>
+    </bean>
+
+    <bean id="exampleJobDetail2" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="sun.quartz.monitor.tutorial.example5.SimpleRecoveryJob"/>
+        <property name="durability" value="true"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="zzz" value="world"/>
+            </map>
+        </property>
+        <property name="requestsRecovery" value="true"/>
+        <property name="name" value="job2"/>
+        <property name="group" value="group2"/>
+    </bean>
+
+
     <bean id="hello" class="sun.quartz.monitor.tutorial.example5.SimpleHello"/>
+
+
+    <bean id="schedulerMonitor" class="sun.quartz.monitor.component.SchedulerMonitor">
+        <property name="scheduler" ref="scheduler"/>
+    </bean>
+
 </beans>
